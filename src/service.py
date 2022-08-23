@@ -51,7 +51,7 @@ class Model(object):
         run_file = os.path.join(tmp_folder, self.RUN_FILE)
         with open(run_file, "w") as f:
             lines = [
-                "python {0}/run_cddd.py -i {1} -o {2} --smiles_header 'smiles' --model_dir {3}/default_model/".format(
+                "python {0}/predict.py {1} {2}".format(
                     self.framework_dir,
                     data_file,
                     pred_file,
