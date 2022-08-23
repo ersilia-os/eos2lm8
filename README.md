@@ -13,7 +13,7 @@ The SMILES transformer creates 1024-dimensional descriptors (embeddings) based o
 - Mode of training: It is pretrained
 
 # Source code
-Cite the source publication.
+- Publication: https://arxiv.org/abs/1911.04738
 - Code: https://github.com/DSPsleeporg/smiles-transformer
 - Checkpoints: Pretrained model is made available by the authores [here](https://drive.google.com/file/d/1LwE2BzvtDaPGYv0OR6iBjmsqoloH885N/view?usp=sharing). Vocabulary was created locally following [these instructions](https://github.com/DSPsleeporg/smiles-transformer/issues/17#issuecomment-1173134055).
 
