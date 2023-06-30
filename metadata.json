@@ -28,5 +28,10 @@
     "Publication": "https://arxiv.org/abs/1911.04738",
     "Source Code": "https://github.com/DSPsleeporg/smiles-transformer",
     "License": "MIT",
-    "Contributor": "miquelduranfrigola"
+    "Contributor": "miquelduranfrigola",
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
+    "DockerHub": "https://hub.docker.com/r/ersiliaos/eos2lm8",
+    "Docker Architecture": [
+        "AMD64"
+    ]
 }

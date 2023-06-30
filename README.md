@@ -23,6 +23,11 @@ Molecular embedding based on natural language processing. It converts SMILES int
 * [Source Code](https://github.com/DSPsleeporg/smiles-transformer)
 * Ersilia contributor: [miquelduranfrigola](https://github.com/miquelduranfrigola)
 
+## Ersilia model URLs
+* [GitHub](https://github.com/ersilia-os/eos2lm8)
+* [AWS S3](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip)
+* [DockerHub](https://hub.docker.com/r/ersiliaos/eos2lm8) (AMD64)
+
 ## Citation
 
 If you use this model, please cite the [original authors](https://arxiv.org/abs/1911.04738) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
