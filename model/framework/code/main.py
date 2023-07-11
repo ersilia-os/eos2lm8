@@ -8,7 +8,7 @@ infile = sys.argv[1]
 outfile = sys.argv[2]
 
 root = os.path.dirname(os.path.abspath(__file__))
-checkpoint_dir = os.path.abspath(os.path.join(root, "..", "checkpoints"))
+checkpoint_dir = os.path.abspath(os.path.join(root, "..", "..", "checkpoints"))
 
 # vocabulary generated from chembl 24 (chembl_24_chemreps.txt)
 vocab_path = os.path.join(checkpoint_dir, "vocab.pkl")
@@ -60,7 +60,6 @@ trfm.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
 with open(infile, "r") as f:
     reader = csv.reader(f)
-    next(reader)
     smiles = []
     for r in reader:
         smiles += [r[0]]
