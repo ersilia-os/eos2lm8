@@ -20,7 +20,7 @@ assert os.path.exists(infile)
 
 # add code path
 import torch
-sys.path.append(os.path.join(root, "smiles_transformer"))
+sys.path.append(os.path.join(root, "..", "smiles_transformer"))
 from pretrain_trfm import TrfmSeq2seq
 from build_vocab import WordVocab
 from utils import split
