@@ -26,7 +26,7 @@ Molecular embedding based on natural language processing. It converts SMILES int
 ## Ersilia model URLs
 * [GitHub](https://github.com/ersilia-os/eos2lm8)
 * [AWS S3](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip)
-* [DockerHub](https://hub.docker.com/r/ersiliaos/eos2lm8) (AMD64)
+* [DockerHub](https://hub.docker.com/r/ersiliaos/eos2lm8) (AMD64, ARM64)
 
 ## Citation
 

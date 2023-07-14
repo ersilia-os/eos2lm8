@@ -32,6 +32,7 @@
     "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos2lm8",
     "Docker Architecture": [
-        "AMD64"
+        "AMD64",
+        "ARM64"
     ]
 }

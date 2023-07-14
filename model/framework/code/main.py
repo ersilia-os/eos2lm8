@@ -8,7 +8,7 @@ infile = sys.argv[1]
 outfile = sys.argv[2]
 
 root = os.path.dirname(os.path.abspath(__file__))
-checkpoint_dir = os.path.abspath(os.path.join(root, "..", "checkpoints"))
+checkpoint_dir = os.path.abspath(os.path.join(root, "..", "..", "checkpoints"))
 
 # vocabulary generated from chembl 24 (chembl_24_chemreps.txt)
 vocab_path = os.path.join(checkpoint_dir, "vocab.pkl")
@@ -20,7 +20,7 @@ assert os.path.exists(infile)
 
 # add code path
 import torch
-sys.path.append(os.path.join(root, "smiles_transformer"))
+sys.path.append(os.path.join(root, "..", "smiles_transformer"))
 from pretrain_trfm import TrfmSeq2seq
 from build_vocab import WordVocab
 from utils import split
@@ -60,7 +60,6 @@ trfm.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
 with open(infile, "r") as f:
     reader = csv.reader(f)
-    next(reader)
     smiles = []
     for r in reader:
         smiles += [r[0]]
