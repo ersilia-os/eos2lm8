@@ -14,12 +14,12 @@ jobs:
     steps:
       # https://github.com/docker/setup-qemu-action
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        uses: docker/setup-qemu-action@v3
       
       # https://github.com/docker/setup-buildx-action
       - name: Set up Docker Buildx
         id: buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v3
     
       # log in to dockerhub
       - name: Login to Docker Hub
@@ -35,20 +35,163 @@ jobs:
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal token
           fetch-depth: 0 # otherwise, you will failed to push refs to dest repo
           lfs: 'true'
+
+# This might stop working in the future, so we need to keep an eye on it
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          # this might remove tools that are actually needed,
+          # if set to "true" but frees about 6 GB
+          tool-cache: true
           
-      - name: Generate the Dockerfile
-        id: generate-dockerfile
+          # all of these default to true, but feel free to set to
+          # "false" if necessary for your workflow
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true
+  
+# Install ersilia in the next few steps to test the built image with ersilia CLI
+      - name: Add conda to system path
+        run: echo $CONDA/bin >> $GITHUB_PATH
+      
+      - name: Source conda
+        run: source $CONDA/etc/profile.d/conda.sh
+
+      - name: Set Python to 3.10.10
+        run:
+         conda install -y python=3.10.10 
+
+      - name: Install dependencies
+        run: |
+          source activate
+          conda init
+          conda install git-lfs -c conda-forge
+          git-lfs install
+          conda install gh -c conda-forge
+
+      - name: Install ersilia
+        run: |
+          source activate
+          python --version
+          echo "After conda init"
+          conda init
+          python -m pip install git+https://github.com/ersilia-os/ersilia.git
+
+# Build a V2 image and test it with ersilia CLI
+
+      - name: Generate the V2 Dockerfile
+        id: generateDockerfileV2
         env:
           REPO_NAME: ${{ github.event.repository.name }}
         run: |
           wget https://raw.githubusercontent.com/ersilia-os/ersilia/master/.github/scripts/place_a_dockerfile_in_current_eos_repo.py
           python -m pip install requests
           python place_a_dockerfile_in_current_eos_repo.py $REPO_NAME
-                                          
+          rm place_a_dockerfile_in_current_eos_repo.py
+
+      # We cannot tag it as anything other than latest because 
+      # ersilia cli only looks for the 'latest' tag
+      - name: Build only V2 AMD64 Image for Testing
+        id: buildForTestV2
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: ersiliaos/${{ github.event.repository.name }}:latest
+          
+      # TODO This is very hacky, maybe we want to use the ersilia test command in the future for this
+      - name: Test built v2 image
+        id: testBuiltImageV2
+        continue-on-error: true  # Allow this to fail
+        run: |
+          ersilia -v fetch ${{ github.event.repository.name }} --from_dockerhub
+          ersilia -v serve ${{ github.event.repository.name }}
+          ersilia example -n 1 -f input.csv --predefined
+          ersilia -v run -i "input.csv" -o "output.csv"
+          ersilia close
+          output=$(python .github/scripts/verify_model_outcome.py output.csv)
+          if echo "$output" | grep -q "All outcomes are null"; then
+            echo "Error in model outcome, aborting build"
+            exit 1
+          fi
+          rm output.csv
+        env:
+          PULL_IMAGE: n
+
+# If the test failed build a V1 image and test it with ersilia CLI
+
+      - name: Generate the V1 Dockerfile
+        id: generateDockerfileV1
+        if: steps.testBuiltImageV2.outcome == 'failure'
+        env:
+          REPO_NAME: ${{ github.event.repository.name }}
+        run: |
+          wget https://raw.githubusercontent.com/ersilia-os/ersilia/master/.github/scripts/place_a_dockerfile_in_current_eos_repo.py
+          python -m pip install requests
+          python place_a_dockerfile_in_current_eos_repo.py $REPO_NAME v1
+          rm place_a_dockerfile_in_current_eos_repo.py
+
+      # We cannot tag it as anything other than latest because 
+      # ersilia cli only looks for the 'latest' tag
+      - name: Build only V1 AMD64 Image for Testing
+        id: buildForTestV1
+        if: steps.testBuiltImageV2.outcome == 'failure'
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          load: true
+          tags: ersiliaos/${{ github.event.repository.name }}:latest
+          
+      # TODO This is very hacky, maybe we want to use the ersilia test command in the future for this
+      - name: Test built v1 image
+        id: testBuiltImageV1
+        if: steps.testBuiltImageV2.outcome == 'failure'
+        run: |
+          ersilia -v fetch ${{ github.event.repository.name }} --from_dockerhub
+          ersilia -v serve ${{ github.event.repository.name }}
+          ersilia example -n 1 -f input.csv --predefined
+          ersilia -v run -i "input.csv" -o "output.csv"
+          ersilia close
+          output=$(python .github/scripts/verify_model_outcome.py output.csv)
+          if echo "$output" | grep -q "All outcomes are null"; then
+            echo "Error in model outcome, aborting build"
+            exit 1
+          fi
+          rm output.csv
+        env:
+          PULL_IMAGE: n
+
+# Create an issue to track that this model did not work with the V2 image
+
+      - name: Check for existing issue
+        id: check_existing_alert_issue
+        run: |
+          gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+          issue_number=$(gh issue list --limit 100 --search "${{ vars.DOCKER_BUILD_FAILURE_ISSUE_TITLE }}" --json number --jq '.[0].number')
+          echo "::set-output name=issue_number::$issue_number"
+        if: ${{ (steps.testBuiltImageV2.outcome == 'failure') && (steps.testBuiltImageV1.outcome == 'success') }}
+
+      - name: Create an alert issue
+        uses: actions-ecosystem/action-create-issue@b63bc2bbacb6a838dfe4a9f70da6665ae0962a49
+        id: create_alert_issue 
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          title: ${{ vars.DOCKER_BUILD_FAILURE_ISSUE_TITLE }}
+          body: |
+            This model failed to build with v2 image. Please investigate and fix the issue.
+          labels: |
+            bug
+        if: steps.check_existing_issue.outputs.issue_number == ''
+
+# Finally build and push if everything is successful
+
       - name: Build and push
         id: buildMultiple
         continue-on-error: true
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
+        timeout-minutes: 45
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -69,7 +212,7 @@ jobs:
       - name: Build only for Linux/amd64
         id: buildSingle
         if: steps.buildCheck.outputs.failed == 'true'
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64
@@ -77,7 +220,7 @@ jobs:
           tags: ersiliaos/${{ github.event.repository.name }}:latest
 
       - name: Update Metadata JSON file with DockerHub info
-        id: UpdateMetadata
+        id: updateMetadata
         run: |
           mv Dockerfile_legacy Dockerfile
           python3 -c "
@@ -94,7 +237,6 @@ jobs:
              json.dump(data, f, indent=4)
           "
           rm arch.txt
-          rm place_a_dockerfile_in_current_eos_repo.py
           
       - name: Commit and push changes done to the Metadata JSON file
         uses: actions-js/push@156f2b10c3aa000c44dbe75ea7018f32ae999772 # pin@v1.4
@@ -106,28 +248,6 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           amend: true
           force: true
-
-      - name: Add conda to system path
-        run: echo $CONDA/bin >> $GITHUB_PATH
-      
-      - name: Source conda
-        run: source $CONDA/etc/profile.d/conda.sh
-
-      - name: Install dependencies
-        run: |
-          source activate
-          conda init
-          conda install git-lfs -c conda-forge
-          git-lfs install
-          conda install gh -c conda-forge
-
-      - name: Install ersilia
-        run: |
-          source activate
-          python --version
-          echo "After conda init"
-          conda init
-          python -m pip install git+https://github.com/ersilia-os/ersilia.git
   
       - name: Update metadata to AirTable
         id: update-metadata-to-airtable
@@ -173,3 +293,34 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: ersiliaos/${{ github.event.repository.name }}
           short-description: "Ersilia Model Hub Identifier: ${{ github.event.repository.name }}"
+
+# Create an issue within the repository to track that this model is ready for testing
+
+      - name: Shuffle assignees
+        id: shuffle
+        run: |
+          export assignees=$(echo "${{ vars.assignees }}" | awk 'BEGIN {FS=","}; {srand();split($0,a,FS); print a[int(rand()*NF+1)]}')
+          echo "$assignees" >> $GITHUB_STEP_SUMMARY
+          echo "shuffled_assignee=$assignees" >> $GITHUB_OUTPUT
+          echo "shuffled_assignee=$assignees" >> $GITHUB_ENV
+
+      - name: Check for existing issue
+        id: check_existing_test_issue
+        run: |
+          gh auth login --with-token <<< ${{ secrets.GITHUB_TOKEN }}
+          issue_number=$(gh issue list --limit 100 --search "${{ vars.test_issue_title }}" --json number --jq '.[0].number')
+          echo "::set-output name=issue_number::$issue_number"
+   
+      - name: Create a Test issue
+        uses: actions-ecosystem/action-create-issue@b63bc2bbacb6a838dfe4a9f70da6665ae0962a49
+        id: create_test_issue 
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          title: ${{ vars.TEST_ISSUE_TITLE }}
+          assignees: |
+            ${{ steps.shuffle.outputs.shuffled_assignee }}
+          body: |
+            This model is ready for testing. If you are assigned to this issue, please try it out using the CLI, Google Colab and DockerHub and let us know if it works!
+          labels: |
+            test
+        if: steps.check_issue.outputs.issue_number == ''
