@@ -50,7 +50,12 @@ _10 of 1024 columns are shown_
 ### Resource Consumption
 - **Model Size (Mb):** `22`
 - **Environment Size (Mb):** `2288`
+- **Image Size (Mb):** `2283.39`
 
+**Computational Performance (seconds):**
+- 10 inputs: `33.65`
+- 100 inputs: `31.5`
+- 10000 inputs: `842.08`
 
 ### References
 - **Source Code**: [https://github.com/DSPsleeporg/smiles-transformer](https://github.com/DSPsleeporg/smiles-transformer)
