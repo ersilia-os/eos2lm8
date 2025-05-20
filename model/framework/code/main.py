@@ -71,5 +71,5 @@ X = trfm.encode(torch.t(xid))
 
 with open(outfile, "w", newline="") as f:
     writer = csv.writer(f)
-    writer.writerow([f"feature_{str(i).zfill(4)}" for i in range(X.shape[1])])
+    writer.writerow([f"feature_{str(i).zfill(4)}" for i in range(1024)])
     writer.writerows(X)
