@@ -19,7 +19,7 @@
         "Descriptor"
     ],
     "Output Dimension": 1024,
-    "Output Consistency": "Fixed",
+    "Output Consistency": "Variable",
     "Interpretation": "Vector representation of small molecules",
     "Tag": [
         "Chemical language model",
