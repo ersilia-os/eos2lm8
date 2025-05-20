@@ -2,7 +2,7 @@
 
 Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.
 
-This model was incorporated on 2021-09-22.
+This model was incorporated on 2021-09-28.
 
 ## Information
 ### Identifiers
