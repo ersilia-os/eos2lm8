@@ -22,7 +22,7 @@ This model was incorporated on 2021-09-28.
 
 ### Output
 - **Output Dimension:** `1024`
-- **Output Consistency:** `Fixed`
+- **Output Consistency:** `Variable`
 - **Interpretation:** Vector representation of small molecules
 
 Below are the **Output Columns** of the model:
