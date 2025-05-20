@@ -4,21 +4,25 @@
     "Status": "Ready",
     "Title": "SMILES transformer descriptor",
     "Description": "Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.\n",
-    "Mode": "Pretrained",
+    "Source": "Local",
+    "Source Type": "External",
     "Input": [
         "Compound"
     ],
-    "Input Shape": "Single",
-    "Task": [
-        "Representation"
+    "Input Dimension": 1,
+    "Task": "Representation",
+    "Subtask": "Featurization",
+    "Biomedical Area": [
+        "Any"
+    ],
+    "Target Organism": [
+        "Not Applicable"
     ],
     "Output": [
         "Descriptor"
     ],
-    "Output Type": [
-        "Float"
-    ],
-    "Output Shape": "List",
+    "Output Dimension": 1024,
+    "Output Consistency": "Fixed",
     "Interpretation": "Vector representation of small molecules",
     "Tag": [
         "Chemical language model",
@@ -26,13 +30,19 @@
         "Embedding"
     ],
     "Publication": "https://arxiv.org/abs/1911.04738",
+    "Publication Type": "Preprint",
+    "Publication Year": 2019,
     "Source Code": "https://github.com/DSPsleeporg/smiles-transformer",
     "License": "MIT",
     "Contributor": "miquelduranfrigola",
-    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
+    "Incorporation Date": "2021-09-22",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos2lm8",
     "Docker Architecture": [
         "AMD64",
         "ARM64"
+    ],
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
+    "Deployment": [
+        "Local"
     ]
 }
