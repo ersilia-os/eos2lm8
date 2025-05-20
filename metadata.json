@@ -3,21 +3,18 @@
     "Slug": "smiles-transformer",
     "Status": "Ready",
     "Title": "SMILES transformer descriptor",
-    "Description": "Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.\n",
+    "Description": "Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.",
+    "Deployment": [
+        "Local"
+    ],
     "Source": "Local",
     "Source Type": "External",
+    "Task": "Representation",
+    "Subtask": "Featurization",
     "Input": [
         "Compound"
     ],
     "Input Dimension": 1,
-    "Task": "Representation",
-    "Subtask": "Featurization",
-    "Biomedical Area": [
-        "Any"
-    ],
-    "Target Organism": [
-        "Not Applicable"
-    ],
     "Output": [
         "Descriptor"
     ],
@@ -29,20 +26,23 @@
         "Descriptor",
         "Embedding"
     ],
-    "Publication": "https://arxiv.org/abs/1911.04738",
+    "Biomedical Area": [
+        "Any"
+    ],
+    "Target Organism": [
+        "Not Applicable"
+    ],
     "Publication Type": "Preprint",
     "Publication Year": 2019,
+    "Publication": "https://arxiv.org/abs/1911.04738",
     "Source Code": "https://github.com/DSPsleeporg/smiles-transformer",
     "License": "MIT",
     "Contributor": "miquelduranfrigola",
-    "Incorporation Date": "2021-09-22",
+    "Incorporation Date": "2021-09-28",
+    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos2lm8",
     "Docker Architecture": [
         "AMD64",
         "ARM64"
-    ],
-    "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
-    "Deployment": [
-        "Local"
     ]
 }
