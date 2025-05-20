@@ -60,6 +60,7 @@ trfm.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 
 with open(infile, "r") as f:
     reader = csv.reader(f)
+    header = next(reader)
     smiles = []
     for r in reader:
         smiles += [r[0]]
