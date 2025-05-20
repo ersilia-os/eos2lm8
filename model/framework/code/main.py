@@ -68,4 +68,7 @@ x_split = [split(sm) for sm in smiles]
 xid, xseg = get_array(x_split)
 X = trfm.encode(torch.t(xid))
 
-np.savetxt(outfile, X, delimiter=",")
+with open(outfile, "w", newline="") as f:
+    writer = csv.writer(f)
+    writer.writerow([f"feature_{str(i).zfill(4)}" for i in range(X.shape[1])])
+    writer.writerows(X)
