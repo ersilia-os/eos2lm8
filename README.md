@@ -2,44 +2,87 @@
 
 Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.
 
-## Identifiers
+This model was incorporated on 2021-09-22.
 
-* EOS model ID: `eos2lm8`
-* Slug: `smiles-transformer`
+## Information
+### Identifiers
+- **Ersilia Identifier:** `eos2lm8`
+- **Slug:** `smiles-transformer`
 
-## Characteristics
+### Domain
+- **Task:** `Representation`
+- **Subtask:** `Featurization`
+- **Biomedical Area:** `Any`
+- **Target Organism:** `Not Applicable`
+- **Tags:** `Chemical language model`, `Descriptor`, `Embedding`
 
-* Input: `Compound`
-* Input Shape: `Single`
-* Task: `Representation`
-* Output: `Descriptor`
-* Output Type: `Float`
-* Output Shape: `List`
-* Interpretation: Vector representation of small molecules
+### Input
+- **Input:** `Compound`
+- **Input Dimension:** `1`
 
-## References
+### Output
+- **Output Dimension:** `1024`
+- **Output Consistency:** `Fixed`
+- **Interpretation:** Vector representation of small molecules
 
-* [Publication](https://arxiv.org/abs/1911.04738)
-* [Source Code](https://github.com/DSPsleeporg/smiles-transformer)
-* Ersilia contributor: [miquelduranfrigola](https://github.com/miquelduranfrigola)
+Below are the **Output Columns** of the model:
+| Name | Type | Direction | Description |
+|------|------|-----------|-------------|
+| feature_0000 | float |  | Feature 0 of the smiles transformer |
+| feature_0001 | float |  | Feature 1 of the smiles transformer |
+| feature_0002 | float |  | Feature 2 of the smiles transformer |
+| feature_0003 | float |  | Feature 3 of the smiles transformer |
+| feature_0004 | float |  | Feature 4 of the smiles transformer |
+| feature_0005 | float |  | Feature 5 of the smiles transformer |
+| feature_0006 | float |  | Feature 6 of the smiles transformer |
+| feature_0007 | float |  | Feature 7 of the smiles transformer |
+| feature_0008 | float |  | Feature 8 of the smiles transformer |
+| feature_0009 | float |  | Feature 9 of the smiles transformer |
 
-## Ersilia model URLs
-* [GitHub](https://github.com/ersilia-os/eos2lm8)
-* [AWS S3](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip)
-* [DockerHub](https://hub.docker.com/r/ersiliaos/eos2lm8) (AMD64, ARM64)
+_10 of 1024 columns are shown_
+### Source and Deployment
+- **Source:** `Local`
+- **Source Type:** `External`
+- **DockerHub**: [https://hub.docker.com/r/ersiliaos/eos2lm8](https://hub.docker.com/r/ersiliaos/eos2lm8)
+- **Docker Architecture:** `AMD64`, `ARM64`
+- **S3 Storage**: [https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip](https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip)
 
-## Citation
+### Resource Consumption
 
-If you use this model, please cite the [original authors](https://arxiv.org/abs/1911.04738) of the model and the [Ersilia Model Hub](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff).
 
-## License
+### References
+- **Source Code**: [https://github.com/DSPsleeporg/smiles-transformer](https://github.com/DSPsleeporg/smiles-transformer)
+- **Publication**: [https://arxiv.org/abs/1911.04738](https://arxiv.org/abs/1911.04738)
+- **Publication Type:** `Preprint`
+- **Publication Year:** `2019`
+- **Ersilia Contributor:** [miquelduranfrigola](https://github.com/miquelduranfrigola)
 
-This package is licensed under a GPL-3.0 license. The model contained within this package is licensed under a MIT license.
+### License
+This package is licensed under a [GPL-3.0](https://github.com/ersilia-os/ersilia/blob/master/LICENSE) license. The model contained within this package is licensed under a [MIT](LICENSE) license.
 
-Notice: Ersilia grants access to these models 'as is' provided by the original authors, please refer to the original code repository and/or publication if you use the model in your research.
+**Notice**: Ersilia grants access to models _as is_, directly from the original authors, please refer to the original code repository and/or publication if you use the model in your research.
 
-## About Us
 
-The [Ersilia Open Source Initiative](https://ersilia.io) is a Non Profit Organization ([1192266](https://register-of-charities.charitycommission.gov.uk/charity-search/-/charity-details/5170657/full-print)) with the mission is to equip labs, universities and clinics in LMIC with AI/ML tools for infectious disease research.
+## Use
+To use this model locally, you need to have the [Ersilia CLI](https://github.com/ersilia-os/ersilia) installed.
+The model can be **fetched** using the following command:
+```bash
+# fetch model from the Ersilia Model Hub
+ersilia fetch eos2lm8
+```
+Then, you can **serve**, **run** and **close** the model as follows:
+```bash
+# serve the model
+ersilia serve eos2lm8
+# generate an example file
+ersilia example -n 3 -f my_input.csv
+# run the model
+ersilia run -i my_input.csv -o my_output.csv
+# close the model
+ersilia close
+```
 
-[Help us](https://www.ersilia.io/donate) achieve our mission!
+## About Ersilia
+The [Ersilia Open Source Initiative](https://ersilia.io) is a tech non-profit organization fueling sustainable research in the Global South.
+Please [cite](https://github.com/ersilia-os/ersilia/blob/master/CITATION.cff) the Ersilia Model Hub if you've found this model to be useful. Always [let us know](https://github.com/ersilia-os/ersilia/issues) if you experience any issues while trying to run it.
+If you want to contribute to our mission, consider [donating](https://www.ersilia.io/donate) to Ersilia!
