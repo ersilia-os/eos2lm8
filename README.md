@@ -4,6 +4,7 @@ Molecular embedding based on natural language processing. It converts SMILES int
 
 This model was incorporated on 2021-09-28.
 
+
 ## Information
 ### Identifiers
 - **Ersilia Identifier:** `eos2lm8`
@@ -13,7 +14,7 @@ This model was incorporated on 2021-09-28.
 - **Task:** `Representation`
 - **Subtask:** `Featurization`
 - **Biomedical Area:** `Any`
-- **Target Organism:** `Not Applicable`
+- **Target Organism:** `Any`
 - **Tags:** `Chemical language model`, `Descriptor`, `Embedding`
 
 ### Input
@@ -22,7 +23,7 @@ This model was incorporated on 2021-09-28.
 
 ### Output
 - **Output Dimension:** `1024`
-- **Output Consistency:** `Variable`
+- **Output Consistency:** `Fixed`
 - **Interpretation:** Vector representation of small molecules
 
 Below are the **Output Columns** of the model:
