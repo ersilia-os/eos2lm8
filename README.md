@@ -59,7 +59,7 @@ _10 of 1024 columns are shown_
 
 ### References
 - **Source Code**: [https://github.com/DSPsleeporg/smiles-transformer](https://github.com/DSPsleeporg/smiles-transformer)
-- **Publication**: [https://arxiv.org/abs/1911.04738](https://arxiv.org/abs/1911.04738)
+- **Publication**: [https://doi.org/10.48550/arXiv.1911.04738](https://doi.org/10.48550/arXiv.1911.04738)
 - **Publication Type:** `Preprint`
 - **Publication Year:** `2019`
 - **Ersilia Contributor:** [miquelduranfrigola](https://github.com/miquelduranfrigola)
