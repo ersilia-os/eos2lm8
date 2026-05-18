@@ -34,7 +34,7 @@
     ],
     "Publication Type": "Preprint",
     "Publication Year": 2019,
-    "Publication": "https://arxiv.org/abs/1911.04738",
+    "Publication": "https://doi.org/10.48550/arXiv.1911.04738",
     "Source Code": "https://github.com/DSPsleeporg/smiles-transformer",
     "License": "MIT",
     "Contributor": "miquelduranfrigola",
