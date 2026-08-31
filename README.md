@@ -28,16 +28,16 @@ This model was incorporated on 2021-09-28.Last packaged on 2025-10-22.
 Below are the **Output Columns** of the model:
 | Name | Type | Direction | Description |
 |------|------|-----------|-------------|
-| feature_0000 | float |  | Feature 0 of the smiles transformer |
-| feature_0001 | float |  | Feature 1 of the smiles transformer |
-| feature_0002 | float |  | Feature 2 of the smiles transformer |
-| feature_0003 | float |  | Feature 3 of the smiles transformer |
-| feature_0004 | float |  | Feature 4 of the smiles transformer |
-| feature_0005 | float |  | Feature 5 of the smiles transformer |
-| feature_0006 | float |  | Feature 6 of the smiles transformer |
-| feature_0007 | float |  | Feature 7 of the smiles transformer |
-| feature_0008 | float |  | Feature 8 of the smiles transformer |
-| feature_0009 | float |  | Feature 9 of the smiles transformer |
+| feat_0000 | float |  | Feature 0 of the smiles transformer |
+| feat_0001 | float |  | Feature 1 of the smiles transformer |
+| feat_0002 | float |  | Feature 2 of the smiles transformer |
+| feat_0003 | float |  | Feature 3 of the smiles transformer |
+| feat_0004 | float |  | Feature 4 of the smiles transformer |
+| feat_0005 | float |  | Feature 5 of the smiles transformer |
+| feat_0006 | float |  | Feature 6 of the smiles transformer |
+| feat_0007 | float |  | Feature 7 of the smiles transformer |
+| feat_0008 | float |  | Feature 8 of the smiles transformer |
+| feat_0009 | float |  | Feature 9 of the smiles transformer |
 
 _10 of 1024 columns are shown_
 ### Source and Deployment
