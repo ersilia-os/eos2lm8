@@ -2,7 +2,7 @@
 
 Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.
 
-This model was incorporated on 2021-09-28.Last packaged on 2025-10-22.
+This model was incorporated on 2021-09-28.Last packaged on 2026-08-31.
 
 ## Information
 ### Identifiers
@@ -50,12 +50,12 @@ _10 of 1024 columns are shown_
 ### Resource Consumption
 - **Model Size (Mb):** `22`
 - **Environment Size (Mb):** `2284`
-- **Image Size (Mb):** `2300.61`
+- **Image Size (Mb):** `2317.57`
 
 **Computational Performance (seconds):**
-- 10 inputs: `28.21`
-- 100 inputs: `21.5`
-- 10000 inputs: `252.82`
+- 10 inputs: `25.11`
+- 100 inputs: `16.4`
+- 10000 inputs: `126.07`
 
 ### References
 - **Source Code**: [https://github.com/DSPsleeporg/smiles-transformer](https://github.com/DSPsleeporg/smiles-transformer)
