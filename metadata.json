@@ -39,7 +39,7 @@
     "License": "MIT",
     "Contributor": "miquelduranfrigola",
     "Incorporation Date": "2021-09-28",
-    "Last Packaging Date": "2025-10-22",
+    "Last Packaging Date": "2026-08-31",
     "Release": "v1.0.0",
     "S3": "https://ersilia-models-zipped.s3.eu-central-1.amazonaws.com/eos2lm8.zip",
     "DockerHub": "https://hub.docker.com/r/ersiliaos/eos2lm8",
@@ -49,10 +49,10 @@
     ],
     "Model Size": 22.0,
     "Environment Size": 2284.0,
-    "Image Size": 2300.61,
-    "Computational Performance 1": 28.21,
-    "Computational Performance 2": 18.15,
-    "Computational Performance 3": 21.5,
-    "Computational Performance 4": 63.52,
-    "Computational Performance 5": 252.82
+    "Image Size": 2317.57,
+    "Computational Performance 1": 25.11,
+    "Computational Performance 2": 15.11,
+    "Computational Performance 3": 16.4,
+    "Computational Performance 4": 36.4,
+    "Computational Performance 5": 126.07
 }
