@@ -1,6 +1,6 @@
 # SMILES transformer descriptor
 
-Molecular embedding based on natural language processing. It converts SMILES into fingerprints using an unsupervised model pre-trained on a very large SMILES dataset from ChEMBL. The transformer is particularly well-suited for low-data drug discovery.
+Turns a SMILES string into 1,024 features using a Transformer trained without labels on a large corpus of molecules. Honda and colleagues framed pretraining as sequence reconstruction, so the encoder learns chemistry directly from raw strings rather than from curated descriptors, and reported that the resulting fingerprint is most valuable when downstream labelled data are scarce. The representation is task-independent and its dimensions carry no individual chemical meaning, being intended as input to a downstream classifier or regressor.
 
 This model was incorporated on 2021-09-28.Last packaged on 2026-08-31.
 
@@ -23,7 +23,7 @@ This model was incorporated on 2021-09-28.Last packaged on 2026-08-31.
 ### Output
 - **Output Dimension:** `1024`
 - **Output Consistency:** `Variable`
-- **Interpretation:** Vector representation of small molecules
+- **Interpretation:** 1024 features encoding molecular structure from a self-supervised SMILES Transformer.
 
 Below are the **Output Columns** of the model:
 | Name | Type | Direction | Description |
