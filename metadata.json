@@ -3,7 +3,7 @@
     "Slug": "smiles-transformer",
     "Status": "Ready",
     "Title": "SMILES transformer descriptor",
-    "Description": "Turns a SMILES string into 1,024 features using a Transformer trained without labels on a large corpus of molecules. Honda and colleagues framed pretraining as sequence reconstruction, so the encoder learns chemistry directly from raw strings rather than from curated descriptors, and reported that the resulting fingerprint is most valuable when downstream labelled data are scarce. The representation is task-independent and its dimensions carry no individual chemical meaning, being intended as input to a downstream classifier or regressor.",
+    "Description": "Turns a SMILES string into 1,024 features using a Transformer pretrained without labels on 861,000 molecules sampled from ChEMBL. Honda and colleagues framed pretraining as sequence reconstruction, so the encoder learns chemistry from raw strings rather than from curated descriptors, and found the fingerprint most valuable where downstream labelled data are scarce. The served code never switches the network to evaluation mode, so dropout stays active and the same molecule yields slightly different vectors on every run.",
     "Deployment": [
         "Local"
     ],
