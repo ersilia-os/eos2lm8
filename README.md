@@ -3,7 +3,7 @@
 Turns a SMILES string into 1,024 features using a Transformer pretrained without labels on 861,000 molecules sampled from ChEMBL. Honda and colleagues framed pretraining as sequence reconstruction, so the encoder learns chemistry from raw strings rather than from curated descriptors, and found the fingerprint most valuable where downstream labelled data are scarce. The served code never switches the network to evaluation mode, so dropout stays active and the same molecule yields slightly different vectors on every run.
 
 This model was incorporated on 2021-09-28.
-Last packaged on 2026-08-31.
+Last packaged on 2026-11-18.
 
 ## Information
 ### Identifiers
@@ -51,12 +51,12 @@ _10 of 1024 columns are shown_
 ### Resource Consumption
 - **Model Size (Mb):** `42`
 - **Environment Size (Mb):** `1496`
-- **Image Size (Mb):** `2317.57`
+- **Image Size (Mb):** `400.39`
 
 **Computational Performance (seconds):**
-- 10 inputs: `25.11`
-- 100 inputs: `16.4`
-- 10000 inputs: `126.07`
+- 10 inputs: `25.25`
+- 100 inputs: `17.89`
+- 10000 inputs: `184.87`
 
 ### References
 - **Source Code**: [https://github.com/DSPsleeporg/smiles-transformer](https://github.com/DSPsleeporg/smiles-transformer)
